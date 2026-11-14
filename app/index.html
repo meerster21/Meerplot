@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.4 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.5 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -592,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.4</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.5</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -2704,8 +2704,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.4';
+const VERSION='3.33.5';
 const CHANGELOG=[
+ ['3.33.5','Nov 14, 2026',['Meerplot for Windows: when Update can’t get through, it says why']],
  ['3.33.4','Nov 14, 2026',['Part stock is off by default: a new or pasted program is sized for you but the stock stays off until you turn it on (View options or Stock & Machine). Program templates and Examples still turn it on with their real sizes']],
  ['3.33.3','Nov 14, 2026',['Backup & Restore shows just the backup file – saving to your Claude account still happens by itself in the claude.ai version']],
  ['3.33.2','Nov 14, 2026',['Meerplot icon is now an M over a turned shaft']],
@@ -3095,7 +3096,7 @@ mcMigrate();
 /* Meerplot for Windows (the .exe): Update button – the local server fetches the newest page from GitHub */
 if(window.MEERPLOT_DESKTOP){const b=$('bUpd');$('updGrp').hidden=false;
  const chk=async q=>{try{const r=await(await fetch('/api/check',{cache:'no-store'})).json();if(r.latest&&r.newer){b.textContent='⟳ Update to v'+r.latest;b.classList.add('on');b.title='A newer Meerplot is ready – click to update (your settings and macros stay)'}else{b.textContent='⟳ Update';b.classList.remove('on');if(q)toast(r.latest?'Meerplot v'+VERSION+' is the newest version':'Could not check for updates – is this PC online?')}return r}catch(e){if(q)toast('Could not check for updates');return null}};
- b.onclick=async()=>{b.disabled=true;b.textContent='⟳ Checking…';try{const r=await chk(false);if(!r||!r.newer){b.disabled=false;if(r&&r.latest)toast('Meerplot v'+VERSION+' is the newest version');else toast('Could not reach GitHub – is this PC online?');return}b.textContent='⟳ Updating…';const u=await(await fetch('/api/update',{method:'POST'})).json();if(u.ok){toast('Updated to v'+u.version+' – reloading…');setTimeout(()=>location.reload(),900)}else{toast('Update failed: '+(u.err||'unknown'));b.disabled=false;chk(false)}}catch(e){toast('Update failed: '+e.message);b.disabled=false}};
+ b.onclick=async()=>{b.disabled=true;b.textContent='⟳ Checking…';try{const r=await chk(false);if(!r||!r.newer){b.disabled=false;if(r&&r.latest)toast('Meerplot v'+VERSION+' is the newest version');else if(r&&/404/.test(r.err||''))toast('This Meerplot.exe looks for updates in an old place – download the newest Meerplot-Windows.zip once and use that .exe');else toast('Could not reach GitHub'+(r&&r.err?' ('+r.err+')':'')+' – is this PC online?');return}b.textContent='⟳ Updating…';const u=await(await fetch('/api/update',{method:'POST'})).json();if(u.ok){toast('Updated to v'+u.version+' – reloading…');setTimeout(()=>location.reload(),900)}else{toast('Update failed: '+(u.err||'unknown'));b.disabled=false;chk(false)}}catch(e){toast('Update failed: '+e.message);b.disabled=false}};
  setTimeout(()=>chk(false),1500)}
 $('tpImport').onclick=()=>{$('tpFi').value='';$('tpFi').click()};
 $('tpFi').onchange=async e=>{const f=e.target.files[0];if(!f)return;$('tpInfo').textContent='Reading '+f.name+'…';
