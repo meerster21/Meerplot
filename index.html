@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.2 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.3 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -284,7 +284,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
    <button id="bCmp">⇄ Compare Programs<small>Show the differences between two files</small></button>
    <div class="mh">Shop floor &amp; files</div>
    <button id="bSetup">🖨 Setup Sheet<small>Tools, stock, stops and a picture – print it for the operator</small></button>
-   <button id="bBk">💾 Backup &amp; Restore<small>Keep your settings and macros safe – account sync and backup files</small></button></div></div>
+   <button id="bBk">💾 Backup &amp; Restore<small>Save your settings, macros and templates to a file – or move them to another computer</small></button></div></div>
  <div class="grp">
   <button class="b" id="bTool" title="Tool Manager: names, nose radius and path colors">🔧 Tool Manager</button>
   <button class="b" id="bCfg" title="Stock size, chuck, travel limits, home position">⚙ Stock &amp; Machine</button>
@@ -434,9 +434,6 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <div class="mcwrap"><div id="mcTree"></div><div id="mcPane"></div></div>
  <div class="dfoot"><button class="b ghost" id="mcRst" style="margin-right:auto" title="Put back any built-in macros you deleted">↺ Restore built-ins</button><button class="b on" id="mcClose">Close</button></div></dialog>
 <dialog id="bkdlg" style="--mw:560px"><h3>💾 Backup &amp; Restore</h3>
- <p class="note" id="bkCloud"></p>
- <div class="mcb" style="margin:6px 0"><button class="b" id="bkNow">☁ Save to account now</button></div>
- <h4>Backup file</h4>
  <p style="margin:4px 0 8px;font-size:13px;color:var(--mu)">One file with everything: settings, open tabs, macros, Tool Manager and stock defaults, Excel templates. Keep a copy on a USB stick or the shop drive – it also moves your setup to another computer.</p>
  <div class="mcb"><button class="b on" id="bkSave">⬇ Download backup</button><button class="b" id="bkLoad">⬆ Restore from a backup…</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
  <div class="dfoot"><button class="b on" id="bkClose">Close</button></div></dialog>
@@ -595,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.2</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.3</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -2233,7 +2230,7 @@ async function bkRestore(txt){let j;try{j=JSON.parse(txt)}catch(e){toast('That i
  if(!j||!j.keys||typeof j.keys!=='object'){if(j&&Array.isArray(j.items)){toast('That is a macros backup – open 📂 Macros and use ⬆ Import');return}toast('That is not a Meerplot backup file');return}
  if(!await uiConfirm('Restore this backup?','Your settings, tabs, macros and defaults will be replaced with the ones in this backup.','Restore',1))return;
  Object.entries(j.keys).forEach(([k,v])=>{if(SYNCK.includes(k)&&typeof v==='string')lsSet(k,v)});const lt=syncT();SYNCK.forEach(k=>lt[k]=Date.now());syncTSet(lt);NOSAVE=true;toast('Backup restored – reloading…');setTimeout(()=>location.reload(),700)}
-function bkRender(){const st=CL2.state,f=t=>t?new Date(t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'';
+function bkRender(){if(!$('bkCloud'))return;const st=CL2.state,f=t=>t?new Date(t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'';
  $('bkCloud').innerHTML=st==='on'?`<b style="color:var(--ok)">☁ On</b> – your settings, tabs, macros, tool and stock defaults and templates are saved to your Claude account automatically (last checked ${f(CL2.when)}). If the browser cache is cleared, or you open Meerplot on another computer with the same account, they come back by themselves.`
   :st==='starting'?'☁ Connecting to your Claude account…'
   :st==='error'?`<b style="color:var(--er)">☁ Could not save to your account</b> – ${esc(CL2.err||'unknown error')}. Use a backup file for now.`
@@ -2241,7 +2238,7 @@ function bkRender(){const st=CL2.state,f=t=>t?new Date(t).toLocaleTimeString([],
 
 $('bBk').onclick=()=>{bkRender();$('bkdlg').showModal()};$('bkClose').onclick=()=>$('bkdlg').close();outsideClose($('bkdlg'),()=>$('bkdlg').close());
 $('bkSave').onclick=bkDownload;$('bkLoad').onclick=()=>$('bkFile').click();$('bkFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>bkRestore(String(r.result));r.readAsText(f)};
-$('bkNow').onclick=async()=>{if(!CL2.col){toast('Account saving is not available here');return}try{saveSet()}catch(e){}await clPush();bkRender();toast(CL2.state==='on'?'☁ Saved to your account':'Could not save')};
+if($('bkNow'))$('bkNow').onclick=async()=>{if(!CL2.col){toast('Account saving is not available here');return}try{saveSet()}catch(e){}await clPush();bkRender();toast(CL2.state==='on'?'☁ Saved to your account':'Could not save')};
 /* ---- quick find: next tool change / feed / speed ---- */
 const QF={T:{re:/(?<![A-Z])T\s*\d/,nm:'tool change'},F:{re:/(?<![A-Z])F\s*[+-]?[\d.]/,nm:'feed rate'},S:{re:/(?<![A-Z])S\s*[+-]?[\d.]/,nm:'spindle speed'}};
 function qfDesc(k,line){const c=codeOf(line);if(k==='T'){const m=/(?<![A-Z])T\s*(\d+)/.exec(c),v=+m[1],n=tNum(v),t=TL.find(q=>q.n===n);return'T'+m[1]+(t&&t.name?' – '+t.name:'')}
@@ -2707,8 +2704,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.2';
+const VERSION='3.33.3';
 const CHANGELOG=[
+ ['3.33.3','Nov 14, 2026',['Backup & Restore shows just the backup file – saving to your Claude account still happens by itself in the claude.ai version']],
  ['3.33.2','Nov 14, 2026',['Meerplot icon is now an M over a turned shaft']],
  ['3.33.1','Nov 14, 2026',['New Meerplot icon – a turned shaft with the tool crosshair – on the .exe, its window and the browser tab']],
  ['3.33.0','Nov 14, 2026',['Meerplot for Windows (.exe): new ⟳ Update button – it checks for a newer version and updates in place; your settings, macros and templates stay']],
