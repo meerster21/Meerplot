@@ -8,29 +8,25 @@ Paste or open a program and Meerplot draws the toolpath over the part, plays it 
 
 ## Getting started
 
-### ⬇ [Download Meerplot for Windows](https://github.com/meerster21/Meerplot/releases/latest/download/Meerplot-Windows.zip)
+### ⬇ [Download Meerplot for Windows](https://github.com/meerster21/Meerplot/releases/latest/download/Meerplot.exe)
 
-### 1. Unblock the zip
+That link always gets the newest **Meerplot.exe**.
+
+### 1. Put it somewhere handy
+Move **Meerplot.exe** from Downloads to wherever you want to keep it (Desktop, Documents, etc.).
+
+### 2. Unblock it
 This stops the *“Windows protected your PC”* prompt.
 
-1. Right-click **Meerplot-Windows.zip** → **Properties**.
+1. Right-click **Meerplot.exe** → **Properties**.
 2. At the bottom of the **General** tab, tick **Unblock** → **OK**.
 
-> No **Unblock** box? The file is already unblocked – go to step 2.
-
-### 2. Extract (unzip) it
-1. Right-click **Meerplot-Windows.zip** → **Extract All…** → **Extract**.
-2. A **Meerplot** folder opens with **Meerplot.exe** and a READ ME.
-
-> Don’t run Meerplot.exe from inside the zip – always extract it first.
->
-> **Tip:** move the Meerplot folder somewhere handy (Desktop, Documents, etc.)
+> No **Unblock** box? The file is already unblocked – go to step 3.
 
 ### 3. Run it
 Double-click **Meerplot.exe** – Meerplot opens in its own window.
 
-> Still see *“Windows protected your PC”*? Click **More info** → **Run anyway**
-> (or right-click Meerplot.exe → **Properties** → tick **Unblock** → **OK**).
+> Still see *“Windows protected your PC”*? Click **More info** → **Run anyway**.
 
 Meerplot needs **Microsoft Edge** (built into Windows 10 and 11) or **Google Chrome** to draw its window. No internet is needed except for updates.
 
