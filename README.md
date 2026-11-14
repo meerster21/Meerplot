@@ -10,8 +10,6 @@ Paste or open a program and Meerplot draws the toolpath over the part, plays it 
 
 ### ⬇ [Download Meerplot for Windows](https://github.com/meerster21/Meerplot/releases/latest/download/Meerplot-Windows.zip)
 
-That link always gets the newest **Meerplot-Windows.zip** (all versions are under [Releases](https://github.com/meerster21/Meerplot/releases)). Then:
-
 ### 1. Unblock the zip
 This stops the *“Windows protected your PC”* prompt.
 
@@ -64,7 +62,3 @@ Everything is saved on your PC. To keep a copy or move it to another computer:
 - On the other PC: **Shop Tools → 💾 Backup & Restore → ⬆ Restore from a backup…**
 
 ---
-
-## What’s in this repository
-
-- `app/` – the newest Meerplot page. **⟳ Update** in Meerplot for Windows downloads it from here.
