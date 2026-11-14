@@ -1,5 +1,68 @@
 # Meerplot
 
-G-code backplot and simulator for CNC lathes, by Meer Rasheed.
+**G-code backplot and simulator for CNC lathes** – by Meer Rasheed
 
-- `index.html` – the newest Meerplot. **Meerplot for Windows** (`Meerplot.exe`) downloads this file when you click **⟳ Update**.
+Paste or open a program and Meerplot draws the toolpath over the part, plays it move by move and lists problems before you run it on the machine: crashes into the stock, chuck or steady rest, rapids through material, feeds and speeds, missing decimal points and more.
+
+---
+
+## Getting started (Windows)
+
+Download **Meerplot-Windows.zip** from [Releases](../../releases), then:
+
+### 1. Unblock the zip
+This stops the *“Windows protected your PC”* prompt.
+
+1. Right-click **Meerplot-Windows.zip** → **Properties**.
+2. At the bottom of the **General** tab, tick **Unblock** → **OK**.
+
+> No **Unblock** box? The file is already unblocked – go to step 2.
+
+### 2. Extract (unzip) it
+1. Right-click **Meerplot-Windows.zip** → **Extract All…** → **Extract**.
+2. A **Meerplot** folder opens with **Meerplot.exe** and a READ ME.
+
+> Don’t run Meerplot.exe from inside the zip – always extract it first.
+>
+> **Tip:** move the Meerplot folder somewhere handy (Documents, the shop drive), then right-click **Meerplot.exe** → **Show more options** → **Send to** → **Desktop** for a shortcut.
+
+### 3. Run it
+Double-click **Meerplot.exe** – Meerplot opens in its own window.
+
+> Still see *“Windows protected your PC”*? Click **More info** → **Run anyway**
+> (or right-click Meerplot.exe → **Properties** → tick **Unblock** → **OK**).
+
+Meerplot needs **Microsoft Edge** (built into Windows 10 and 11) or **Google Chrome** to draw its window. No internet is needed except for updates.
+
+---
+
+## Basics
+
+| | |
+|---|---|
+| **Problems** | Crashes, rapids through stock, feeds and speeds, and quick fixes – listed under the code. |
+| **🔧 Tool Manager** | Tool numbers and offsets, type (rougher, finisher, boring bar, drill, center drill…), insert and nose radius – the cut is drawn the way the tool really cuts. |
+| **⚙ Stock & Machine** | Stock Ø and length, bore, workshift for End A and End B, journals or a recess at the end, chuck and jaws, steady rest and home position. |
+| **Program Templates** | Build complete programs from your shop’s sizes. |
+| **📂 Macros** | Your saved subprograms – centers, drills, taps, stops – added to a program in one click. |
+
+---
+
+## Updates
+
+Click **⟳ Update** at the top of Meerplot. It downloads the newest version and reloads – your settings, macros, tools and templates stay.
+
+---
+
+## Backup & Restore
+
+Everything is saved on your PC. To keep a copy or move it to another computer:
+
+- **Shop Tools → 💾 Backup & Restore → ⬇ Download backup** – saves a `.json` file to Downloads.
+- On the other PC: **Shop Tools → 💾 Backup & Restore → ⬆ Restore from a backup…**
+
+---
+
+## What’s in this repository
+
+- `index.html` – the newest Meerplot. **⟳ Update** in Meerplot for Windows downloads this file.
