@@ -8,7 +8,9 @@ Paste or open a program and Meerplot draws the toolpath over the part, plays it 
 
 ## Getting started (Windows)
 
-Download **Meerplot-Windows.zip** from [Releases](../../releases), then:
+### ⬇ [Download Meerplot for Windows](https://github.com/meerster21/Meerplot/releases/latest/download/Meerplot-Windows.zip)
+
+That link always gets the newest **Meerplot-Windows.zip** (all versions are under [Releases](https://github.com/meerster21/Meerplot/releases)). Then:
 
 ### 1. Unblock the zip
 This stops the *“Windows protected your PC”* prompt.
