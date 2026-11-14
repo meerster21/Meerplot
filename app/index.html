@@ -88,7 +88,7 @@ table.lim{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-nume
 #pre{overflow:hidden;pointer-events:none}
 #ta{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2716%27%20height%3D%2724%27%20viewBox%3D%270%200%2016%2024%27%3E%3Cpath%20d%3D%27M5%202h6M5%2022h6M8%202v20%27%20stroke%3D%27%23000%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Cpath%20d%3D%27M5%202h6M5%2022h6M8%202v20%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.8%27%20stroke-linecap%3D%27round%27/%3E%3C/svg%3E") 8 12, text;background:transparent;color:transparent;caret-color:var(--ac);resize:none;outline:none}
 #pre .L{display:block;min-height:var(--lh,20px);min-width:var(--lw,100%);width:max-content}#pre .cur{background:color-mix(in srgb,var(--ac) 18%,transparent)}
-/* CIMCO-style code: bold Courier, whole line coloured by motion (G0 red, G1 green, G2/G3 blue), comments blue, the rest black */
+/* CIMCO-style code: bold Courier, whole line colored by motion (G0 red, G1 green, G2/G3 blue), comments blue, the rest black */
 #ed:is([data-es=cimco],[data-es=cimco2]){font-family:"Courier New",Courier,"Liberation Mono",monospace;font-weight:700;--cbg:#fff;--cfg:#000;--cr:#c80000;--cg:#00a800;--cb:#0000c8;--cc:#0000b4;--cgut:#555}
 [data-theme=dark] #ed:is([data-es=cimco],[data-es=cimco2]){--cbg:#101216;--cfg:#e8e8e8;--cr:#ff6262;--cg:#5be05b;--cb:#86a8ff;--cc:#86a8ff;--cgut:#9aa0aa}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) #ed:is([data-es=cimco],[data-es=cimco2]){--cbg:#101216;--cfg:#e8e8e8;--cr:#ff6262;--cg:#5be05b;--cb:#86a8ff;--cc:#86a8ff;--cgut:#9aa0aa}}
@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.5 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.6 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -349,8 +349,8 @@ dialog input[type=checkbox]{width:16px;height:16px}
    <label><input type="checkbox" data-o="cut"> Material removal</label><label><input type="checkbox" data-o="ctool"> Color path by tool</label><label><input type="checkbox" data-o="fade"> Fade the path once cut</label>
    <label><input type="checkbox" data-o="rap"> Rapid moves (G0)</label><label><input type="checkbox" data-o="ghost"> Path still to come</label><label><input type="checkbox" data-o="pts"> End points</label><label><input type="checkbox" data-o="grid"> Grid</label>
    <label><input type="checkbox" data-s="dia"> X values are diameters</label>
-   <label title="Mimic another program's backplot colours (follows light / dark mode)" style="gap:6px">Graph colours<select id="gsSel" style="margin-left:auto"><option value="mp">Meerplot</option><option value="cimco">CIMCO style (blue)</option></select></label>
-   <label title="How the code is coloured in the editor (follows light / dark mode)" style="gap:6px">Code colours<select id="esSel" style="margin-left:auto"><option value="mp">Meerplot</option><option value="cimco">CIMCO style</option><option value="cimco2">CIMCO + G/M colours</option></select></label>
+   <label title="Mimic another program's backplot colors (follows light / dark mode)" style="gap:6px">Graph colors<select id="gsSel" style="margin-left:auto"><option value="mp">Meerplot</option><option value="cimco">CIMCO style (blue)</option></select></label>
+   <label title="How the code is colored in the editor (follows light / dark mode)" style="gap:6px">Code colors<select id="esSel" style="margin-left:auto"><option value="mp">Meerplot</option><option value="cimco">CIMCO style</option><option value="cimco2">CIMCO + G/M colors</option></select></label>
    <label title="Playback only – the cycle time always uses the real rapid rate from Stock &amp; Machine" style="gap:6px">G0 speed in playback<select id="rsimSel" style="margin-left:auto"><option value="30">Slow (30 in/min)</option><option value="60">Medium (60 in/min)</option><option value="120">Fast (120 in/min)</option><option value="0">Real rapid rate</option></select></label>
    <small class="obn" style="line-height:1.5">Lathe: chuck on the left, Z0 face on the right.<br>Drag: move · Right-drag: rotate · Wheel: zoom<br>Click a point: go to that line · Double-click: front view</small></div></details>
    <div id="keyhint">Click the graph, then use ↑ ↓ to move line by line · ← → step moves · Space play/pause · Esc or click empty space to clear the highlight and tool</div>
@@ -592,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.5</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.6</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -1231,7 +1231,7 @@ const HLC=new Map();function hl(s){const c=HLC.get(s);if(c!==undefined)return c;
 function hl0(s){let o='',l=0;const C=['c','r','a','g','m','v','f','x','n'];s.replace(HRE,(...a)=>{const off=a[a.length-2],m=a[0],k=a.slice(1,10).findIndex(x=>x!==undefined);
  o+=esc(s.slice(l,off))+`<span class="${C[k]}">${esc(m)}</span>`;l=off+m.length;return m});
  return o+esc(s.slice(l))}
-/* CIMCO colours a whole line by its motion: its own G0/G1/G2/G3, or the active one when it has an absolute X/Y/Z move */
+/* CIMCO colors a whole line by its motion: its own G0/G1/G2/G3, or the active one when it has an absolute X/Y/Z move */
 function lineModes(L){let m=-1;return L.map(s=>{const c=s.replace(/\([^)]*\)?|;.*$/g,'').toUpperCase();let own=-1;c.replace(/(?<![A-Z])G0*([0-3])(?![\d.])/g,(_,d)=>{own=d==='3'?2:+d;return _});if(own>=0){m=own;return own}if(m>=0&&/(?<![A-Z])[XYZ][+-]?[\d.]/.test(c)&&!/(?<![A-Z])G(28|50|7[0-6]|9[2])(?![\d])/.test(c))return m;return -1})}
 /* fast path while typing: only redraw the line(s) that changed */
 function hlQuick(){const L=ta.value.split('\n'),ch=pre.children;if(/^cimco/.test(O.es||'')||ch.length!==L.length)return hlRender();for(let i=0;i<L.length;i++){const el=ch[i],h=hl(L[i])||'&#8203;';if(el.__h!==h&&el.innerHTML!==h){el.innerHTML=h}el.__h=h}requestAnimationFrame(()=>edAlign&&edAlign())}
@@ -1521,7 +1521,7 @@ function histSettings(){flush();const sn=setSnap();if(HSS[hi]===sn)return;if(HSS
 function histApply(){const sn=HSS[hi];if(!sn||sn===setSnap())return false;try{const o=JSON.parse(sn);for(const k in S)if(!(k in o.S))delete S[k];Object.assign(S,o.S);TL.splice(0,TL.length,...o.TL);cache=null;fillCfg();syncOpts();return true}catch(e){return false}}
 const keepScroll=fn=>{const sc=ta.scrollTop,sl=ta.scrollLeft;fn();ta.scrollTop=sc;ta.scrollLeft=sl;ta.dispatchEvent(new Event('scroll'));requestAnimationFrame(()=>{if(Math.abs(ta.scrollTop-sc)>1){ta.scrollTop=sc;ta.dispatchEvent(new Event('scroll'))}})};
 const undo=()=>{flush();if(hi>0)keepScroll(()=>{const was=setSnap();hi--;ta.value=HS[hi];const ch=histApply();delete S.freshStock;NOFIT=1;try{rebuild(false)}finally{NOFIT=0}if(ch&&was!==setSnap())toast('↶ Settings undone')})},redo=()=>{flush();if(hi<HS.length-1)keepScroll(()=>{hi++;ta.value=HS[hi];const ch=histApply();delete S.freshStock;NOFIT=1;try{rebuild(false)}finally{NOFIT=0}if(ch)toast('↷ Settings redone')})};
-{const es=$('esSel'),ap=()=>{$('ed').dataset.es=O.es||'mp';hlRender()};es.value=O.es||'mp';es.onchange=()=>{O.es=es.value;ap();saveSet();toast(O.es==='cimco'?'Code shown in CIMCO style':O.es==='cimco2'?'Code shown in CIMCO style, with G and M codes coloured':'Code shown in Meerplot colours')};window.esSync=()=>{es.value=O.es||'mp';ap()}}
+{const es=$('esSel'),ap=()=>{$('ed').dataset.es=O.es||'mp';hlRender()};es.value=O.es||'mp';es.onchange=()=>{O.es=es.value;ap();saveSet();toast(O.es==='cimco'?'Code shown in CIMCO style':O.es==='cimco2'?'Code shown in CIMCO style, with G and M codes colored':'Code shown in Meerplot colors')};window.esSync=()=>{es.value=O.es||'mp';ap()}}
 {const gs=$('gsSel');gs.value=O.gs||'mp';gs.onchange=()=>{O.gs=gs.value;applyGS();saveSet()};window.gsSync=()=>{gs.value=O.gs||'mp';applyGS()}}
 {const rs=$('rsimSel');const rv=()=>{const v=S.rsim==null?60:+S.rsim;rs.value=[30,60,120].includes(v)?String(v):'0'};rv();rs.onchange=()=>{S.rsim=+rs.value;saveSet();toast(+rs.value?'G0 plays at '+rs.value+' in/min (cycle time unchanged)':'G0 plays at the real rapid rate')};window.rsimSync=rv}
 /* History menu: every undo step, labelled by what changed */
@@ -1702,7 +1702,7 @@ function lineStep(d){const n=ta.value.split('\n').length,b=MK>=0?MK:curLn>=0?cur
 
 /* ---------- drawing ---------- */
 let CSSC={};const css0=n=>CSSC[n]??(CSSC[n]=getComputedStyle(document.documentElement).getPropertyValue(n).trim());
-/* graph colour styles – "cimco" mimics CIMCO Edit's backplot: blue gradient, yellow tool path, white stock */
+/* graph color styles – "cimco" mimics CIMCO Edit's backplot: blue gradient, yellow tool path, white stock */
 const GSV={cimco:{light:{'--fd':'#ffff3c','--rap':'#ff8a8a','--tx':'#ffffff','--mu':'#dfe2ff','--bd':'rgba(255,255,255,.12)','--st':'rgba(255,255,255,.8)','--mat':'#ffffff','--er':'#ff4040','--c4':'#ffc2ff','--c5':'#7dffb0','--axz':'rgba(15,15,60,.55)','--axx':'rgba(15,15,60,.55)','--pn':'#2a2aa0','--ok':'#7dffb0'},
  dark:{'--fd':'#ffff3c','--rap':'#ff7a7a','--tx':'#ffffff','--mu':'#b9bdf0','--bd':'rgba(160,170,255,.12)','--st':'rgba(220,225,255,.7)','--mat':'#e8ebff','--er':'#ff4d4d','--c4':'#d9a8ff','--c5':'#7dffb0','--axz':'rgba(170,180,255,.4)','--axx':'rgba(170,180,255,.4)','--pn':'#10104a','--ok':'#7dffb0'}}};
 const isDarkUI=()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()==='#0d1015';
@@ -1895,7 +1895,7 @@ $('trows').onclick=e=>{const mvb=e.target.closest('[data-mv]');if(mvb){const i=+
 $('bTool').onclick=()=>{TL.forEach(tNorm);tRows();$('tdlg').showModal()};$('soOk').onclick=()=>$('sodlg').close();outsideClose($('sodlg'),()=>$('sodlg').close());$('tIg').onclick=()=>{$('igBody').innerHTML=insGuideHTML();$('igdlg').showModal()};$('igOk').onclick=()=>$('igdlg').close();$('tOk').onclick=()=>$('tdlg').close();$('tdlg').onclose=()=>{cache=null;rebuild(false);histSettings()};
 $('tAdd').onclick=()=>{const n=Math.max(0,...TL.map(t=>t.n))+1;TL.push({n,name:'Tool '+n,type:'OD turn',nr:UNIT==='mm'?.8:.031,col:PAL[n%PAL.length]});tRows()};
 document.querySelectorAll('#ob input[data-o],#ob input[data-s]').forEach(i=>i.checked=!!(i.dataset.o?O[i.dataset.o]:S[i.dataset.s]));if(typeof wkSync==='function')wkSync();
-$('ob').onchange=e=>{delete S.freshStock;if(e.target.id==='wkAll'){const v=e.target.checked;S.stock=+v;S.chuck=+v;S.sr=v?(S.srOn||1):0;syncOpts();cache=null;rebuild(true);if(typeof fillCfg==='function')fillCfg();histSettings();return}const d=e.target.dataset,v=+e.target.checked;if(d.o){O[d.o]=v;draw()}else{S[d.s]=d.s==='sr'?(v?(S.srOn||1):0):v;(d.s==='edge'||d.s==='sr'||d.s==='dia'||d.s==='chuck'||d.s==='stock'||d.s==='bdel'||d.s==='autoflip')?(cache=null,rebuild(true)):doFit();wkSync();if($('dlg').open)fillCfg();histSettings()}};
+$('ob').onchange=e=>{if(e.target.id!=='wkAll'&&!e.target.dataset.o&&!e.target.dataset.s)return;/* the color / code style pickers have their own handlers – they must not refit the view */delete S.freshStock;if(e.target.id==='wkAll'){const v=e.target.checked;S.stock=+v;S.chuck=+v;S.sr=v?(S.srOn||1):0;syncOpts();cache=null;rebuild(true);if(typeof fillCfg==='function')fillCfg();histSettings();return}const d=e.target.dataset,v=+e.target.checked;if(d.o){O[d.o]=v;draw()}else{S[d.s]=d.s==='sr'?(v?(S.srOn||1):0):v;(d.s==='edge'||d.s==='sr'||d.s==='dia'||d.s==='chuck'||d.s==='stock'||d.s==='bdel'||d.s==='autoflip')?(cache=null,rebuild(true)):doFit();wkSync();if($('dlg').open)fillCfg();histSettings()}};
 /* ---------- editor tools ---------- */
 let FS=13,UNIT='in',mt,CV=null,TR=null;const LH=()=>Math.round(FS*1.54),splitC=l=>l.split(/(\([^)]*\)?|;.*$)/);
 function toast(t){const e=$('toast');if(!t)return;e.textContent=t;e.classList.add('show');clearTimeout(mt);mt=setTimeout(()=>e.classList.remove('show'),3200)}
@@ -2704,8 +2704,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.5';
+const VERSION='3.33.6';
 const CHANGELOG=[
+ ['3.33.6','Nov 14, 2026',['Changing the graph colors or the code style no longer zooms out of the backplot','US spelling: colors']],
  ['3.33.5','Nov 14, 2026',['Meerplot for Windows: when Update can’t get through, it says why']],
  ['3.33.4','Nov 14, 2026',['Part stock is off by default: a new or pasted program is sized for you but the stock stays off until you turn it on (View options or Stock & Machine). Program templates and Examples still turn it on with their real sizes']],
  ['3.33.3','Nov 14, 2026',['Backup & Restore shows just the backup file – saving to your Claude account still happens by itself in the claude.ai version']],
