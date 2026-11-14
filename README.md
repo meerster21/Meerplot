@@ -6,7 +6,7 @@ Paste or open a program and Meerplot draws the toolpath over the part, plays it 
 
 ---
 
-## Getting started (Windows)
+## Getting started
 
 ### ⬇ [Download Meerplot for Windows](https://github.com/meerster21/Meerplot/releases/latest/download/Meerplot-Windows.zip)
 
