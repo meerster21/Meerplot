@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Meerplot – G-Code Backplot &amp; Simulator</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306b6d4'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='white' stroke-width='5'/%3E%3Cpath d='M32 8v14M32 42v14M8 32h14M42 32h14' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Meerplot – G-Code Backplot &amp; Simulator</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%230e7490'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='8' y='8' width='240' height='240' rx='52' fill='url(%23g)'/%3E%3Cpath d='M34 178 H82 V150 H130 V122 H222' fill='none' stroke='%23fde047' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='164' cy='86' r='30' fill='none' stroke='%23fff' stroke-width='14'/%3E%3Cpath d='M164 34 V60 M164 112 V138 M112 86 H138 M190 86 H216' stroke='%23fff' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="author" content="Meer Rasheed">
 <style>
 :root{--bg:#f3f4f6;--pn:#ffffff;--pn2:#f8f9fb;--hov:#eef1f5;--bd:#dfe3e9;--bd2:#cbd2db;--tx:#161a21;--mu:#646d7b;--ac:#0e7490;--acx:#ffffff;--vp:#f6f8fb;--rap:#c2410c;--fd:#0f766e;--er:#dc2626;--ok:#15803d;--st:#94a3b8;--c1:#6b7280;--c2:#b45309;--c3:#0f766e;--c4:#7c3aed;--c5:#be185d;--c6:#1d4ed8;--c7:#047857;--sh:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);--shl:0 20px 50px rgba(0,0,0,.25);
@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.0 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.1 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -595,7 +595,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.0</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.1</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -2707,8 +2707,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.0';
+const VERSION='3.33.1';
 const CHANGELOG=[
+ ['3.33.1','Nov 14, 2026',['New Meerplot icon – a turned shaft with the tool crosshair – on the .exe, its window and the browser tab']],
  ['3.33.0','Nov 14, 2026',['Meerplot for Windows (.exe): new ⟳ Update button – it checks for a newer version and updates in place; your settings, macros and templates stay']],
  ['3.32.6','Nov 14, 2026',['A short steep dip (1/16 or less on radius – a grind relief or undercut) is now a 💡 note, not a warning; longer steep tapers still warn']],
  ['3.32.5','Nov 14, 2026',['“Ramps down” no longer has a quick fix that stretches the move – it moved where the cut ends and could cut into the next shoulder (e.g. the 4-step grind relief). The tip now says what W would be needed and why it isn’t changed']],
