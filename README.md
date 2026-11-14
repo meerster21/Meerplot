@@ -67,4 +67,4 @@ Everything is saved on your PC. To keep a copy or move it to another computer:
 
 ## What’s in this repository
 
-- `index.html` – the newest Meerplot. **⟳ Update** in Meerplot for Windows downloads this file.
+- `app/` – the newest Meerplot page. **⟳ Update** in Meerplot for Windows downloads it from here.
