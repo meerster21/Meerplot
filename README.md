@@ -24,7 +24,7 @@ This stops the *“Windows protected your PC”* prompt.
 
 > Don’t run Meerplot.exe from inside the zip – always extract it first.
 >
-> **Tip:** move the Meerplot folder somewhere handy (Documents, the shop drive), then right-click **Meerplot.exe** → **Show more options** → **Send to** → **Desktop** for a shortcut.
+> **Tip:** move the Meerplot folder somewhere handy (Desktop, Documents, etc.)
 
 ### 3. Run it
 Double-click **Meerplot.exe** – Meerplot opens in its own window.
