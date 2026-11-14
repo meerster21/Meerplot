@@ -1,6 +1,6 @@
 # Meerplot
 
-**G-code backplot and simulator for CNC lathes** – by Meer Rasheed
+**G-code backplot and simulator for CNC lathes**
 
 Paste or open a program and Meerplot draws the toolpath over the part, plays it move by move and lists problems before you run it on the machine: crashes into the stock, chuck or steady rest, rapids through material, feeds and speeds, missing decimal points and more.
 
