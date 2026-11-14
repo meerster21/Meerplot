@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.6 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.7 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -592,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.6</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.7</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -1925,6 +1925,7 @@ function convertUnitsRaw(toMM){const f=toMM?25.4:1/25.4,d=toMM?3:4;let n=0;
  setUnit(toMM?'mm':'in');fillCfg();setText(nw);doFit();msg(`Converted ${n} values to ${toMM?'mm':'inches'} (stock, jaws, home and tools scaled; P/Q/D words untouched)`)}
 $('fI2M').onclick=()=>convertUnits(true);$('fM2I').onclick=()=>convertUnits(false);
 async function saveTxt(){const t=ta.value;if(!t.trim()){msg('Nothing to save');return}const m=/^\s*O0*(\d+)/im.exec(t),nm=($('pname').value||'').trim().replace(/[\\/:*?"<>|]+/g,'-'),fn=nm?(/\.[a-z0-9]{1,5}$/i.test(nm)?nm:nm+'.txt'):(m?'O'+m[1].padStart(4,'0'):'gcode')+'.txt';
+ {const r=await pickSave(fn,t,'text/plain');if(r==='cancel')return;if(r==='ok'){markSaved(t);msg('Saved '+fn);return}}
  try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:fn,data:t});markSaved(t);msg('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);markSaved(t);msg('Saved '+fn)}
 $('fSave').onclick=saveTxt;
@@ -2106,6 +2107,7 @@ $('suNotes').addEventListener('input',()=>{clearTimeout(suRender.t);suRender.t=s
 $('suClose').onclick=()=>$('sudlg').close();
 $('suPrint').onclick=()=>{try{const w=$('suFrame').contentWindow;w.focus();w.print()}catch(e){toast('Printing is blocked here – use ⬇ Download, then open the file and print it')}};
 $('suDl').onclick=async()=>{const fn=(($('pname').value||'').trim()||'program').replace(/[^\w.-]+/g,'_')+'_setup_sheet.html',t=setupHTML(true);
+ {const r=await pickSave(fn,t,'text/html');if(r==='cancel')return;if(r==='ok'){toast('Saved '+fn);return}}
  try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:fn,data:t});toast('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/html'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Saved '+fn)};
 $('vMeas').onclick=()=>measSet(!MEAS.on);
@@ -2184,7 +2186,8 @@ $('mcImp').onclick=()=>$('mcFile').click();
 $('mcFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>{const t=String(r.result),M=mcLoad();
  try{const j=JSON.parse(t);if(j&&Array.isArray(j.items)){let a=0;(j.folders||[]).forEach(x=>{if(!M.folders.includes(x))M.folders.push(x)});j.items.forEach(x=>{if(!M.items.some(y=>y.f===x.f&&y.name===x.name&&y.code===x.code)){M.items.push({...x,id:'u'+Date.now()+'_'+a});a++;if(!M.folders.includes(x.f))M.folders.push(x.f)}});mcSave();mcSel(null);toast(`Restored ${a} macros from the backup`);return}}catch(_){}
  const parts=mcSplit(t);if(!parts.length){toast('No G-code found in that file');return}let fn=f.name.replace(/\.[^.]+$/,'')||'Imported',k=2,base=fn;while(M.folders.includes(fn))fn=base+' '+k++;M.folders.push(fn);parts.forEach((p,i)=>M.items.push({id:'u'+Date.now()+'_'+i,f:fn,...p}));MCOPEN.add(fn);mcSave();mcSel({folder:fn});toast(`Imported ${parts.length} macro${parts.length>1?'s':''} into the folder “${fn}”`)};r.readAsText(f)};
-$('mcExp').onclick=async()=>{const t=JSON.stringify(mcLoad(),null,1),fn='gcode_macros_backup.json';try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:fn,data:t});toast('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return}
+$('mcExp').onclick=async()=>{const t=JSON.stringify(mcLoad(),null,1),fn='gcode_macros_backup.json';{const r=await pickSave(fn,t,'application/json');if(r==='cancel')return;if(r==='ok'){toast('Saved '+fn);return}}
+ try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:fn,data:t});toast('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Saved '+fn)};
 $('mcRst').onclick=()=>{const M=mcLoad();let a=0;MCF_ORDER.forEach(f=>{if(!M.folders.includes(f))M.folders.push(f)});MC_BUILTIN.forEach(b=>{if(!M.items.some(x=>x.id===b.id)){M.items.push({...b});a++}});mcSave();mcSel(null);toast(a?`Put back ${a} built-in macro${a>1?'s':''}`:'All built-in macros are already there')};
 $('bMac').onclick=()=>{mcLoad();$('mcQ').value='';mcTree();mcShow();$('mcdlg').showModal()};
@@ -2224,6 +2227,7 @@ setTimeout(clInit,300);
 /* file backup – works everywhere, even offline */
 function bkData(){const keys={};SYNCK.forEach(k=>{const v=lsGet(k);if(v!=null)keys[k]=v});return JSON.stringify({app:'Meerplot',version:VERSION,saved:new Date().toISOString(),keys})}
 async function bkDownload(){try{saveSet()}catch(e){}const t=bkData(),d=new Date(),fn=`Meerplot_backup_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`;
+ {const r=await pickSave(fn,t,'application/json');if(r==='cancel')return;if(r==='ok'){toast('Saved '+fn);return}}
  try{const dl=window.claude&&claude.use?await claude.use('downloads'):null;if(dl){await dl.save({filename:fn,data:t});toast('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Saved '+fn)}
 async function bkRestore(txt){let j;try{j=JSON.parse(txt)}catch(e){toast('That is not a Meerplot backup file');return}
@@ -2273,6 +2277,10 @@ addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLow
  else if(e.key==='F3'||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='g')){if($('findbar').hidden)return;e.preventDefault();fdGo(e.shiftKey?-1:1)}},true);
 /* ---- suggested fixes for problems ---- */
 function lnText(l){return ta.value.split('\n')[l]??''}
+/* Save: ask where to save (Windows file dialog) wherever the browser allows it – falls back to the normal download */
+async function pickSave(fn,data,mime){if(typeof window.showSaveFilePicker!=='function')return null;const ext=(fn.match(/\.[a-z0-9]+$/i)||['.txt'])[0].toLowerCase();
+ try{const h=await window.showSaveFilePicker({suggestedName:fn,id:'meerplot-save-'+ext.slice(1),types:[{description:({'.txt':'G-code program','.nc':'G-code program','.html':'Web page','.json':'Backup file','.xlsx':'Excel workbook'})[ext]||'File',accept:{[mime]:[ext]}}]});const w=await h.createWritable();await w.write(data instanceof Blob?data:new Blob([data],{type:mime}));await w.close();return'ok'}
+ catch(e){if(e&&e.name==='AbortError')return'cancel';return null/* not allowed here (e.g. inside claude.ai) – use the normal download */}}
 function setLine(l,txt){const L=ta.value.split('\n');L[l]=txt;setText(L.join('\n'))}
 function insAbove(l,lines){const L=ta.value.split('\n');L.splice(l,0,...lines);setText(L.join('\n'));toast('Added above line '+(l+1)+' – ↶ Undo if you don’t want it')}
 function codePartsMap(line,fn){return splitC(line).map((p,i)=>i%2?p:fn(p)).join('')}
@@ -2704,8 +2712,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.6';
+const VERSION='3.33.7';
 const CHANGELOG=[
+ ['3.33.7','Nov 14, 2026',['Save asks where to save the file (Windows Save As dialog, starting in the last folder you used) – programs, setup sheets, backups, macros and Excel templates']],
  ['3.33.6','Nov 14, 2026',['Changing the graph colors or the code style no longer zooms out of the backplot','US spelling: colors']],
  ['3.33.5','Nov 14, 2026',['Meerplot for Windows: when Update can’t get through, it says why']],
  ['3.33.4','Nov 14, 2026',['Part stock is off by default: a new or pasted program is sized for you but the stock stays off until you turn it on (View options or Stock & Machine). Program templates and Examples still turn it on with their real sizes']],
@@ -3050,6 +3059,7 @@ function tpXlsx(def,vals){const X=v=>String(v).replace(/&/g,'&amp;').replace(/</
   ['xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs></styleSheet>']);
  return zipStore(files)}
 $('tpXls').onclick=async()=>{const def=tpBooks()[TPC.key];if(!def)return;const blob=tpXlsx(def,TPV[TPC.key]||{}),fn=(def.title||'Template').replace(/[\\/:*?"<>|]+/g,'-').trim()+'.xlsx';
+ {const r=await pickSave(fn,blob,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');if(r==='cancel')return;if(r==='ok'){toast('Saved '+fn);return}}
  try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:fn,data:blob});toast('Saved '+fn);return}}catch(e){if(e&&e.code==='declined')return;toast('Could not save: '+(e&&e.message||e));return}
  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800);toast('Saved '+fn)};
 $('tpClose').onclick=()=>$('tpdlg').close();
