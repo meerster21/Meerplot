@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.7 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.8 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -592,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.7</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.8</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -1497,7 +1497,7 @@ $('outl').onchange=e=>{const q=e.target.dataset.k;if(q==null)return;e.target.che
 /* menus, help, mobile tabs */
 function placeMenu(m){const l=m.querySelector('.mlist');if(!m.classList.contains('open'))return;const r=m.querySelector('.b').getBoundingClientRect(),z=UZF();l.style.position='fixed';l.style.top=(r.bottom+4)/z+'px';l.style.right='auto';const w=Math.min((l.offsetWidth||240),innerWidth/z-16);l.style.left=Math.max(8,Math.min(r.left/z,innerWidth/z-w-8))+'px'}
 /* button size (UI zoom) */
-const UZS=[.8,.9,1,1.1,1.25,1.4,1.6];let UZ=1;try{UZ=+localStorage.getItem('gcbp_uz')||1}catch(e){}
+const UZS=[.8,.9,1,1.1,1.25,1.4,1.6];let UZ=1.25;try{UZ=+localStorage.getItem('gcbp_uz')||1.25;/* v3.33.8: the default is 125% – move the old 100% default up once */if(localStorage.getItem('gcbp_uz125')!=='1'){if(UZ===1)UZ=1.25;localStorage.setItem('gcbp_uz125','1')}}catch(e){}
 function UZF(){return UZ}
 function uzSet(v,say){UZ=Math.max(.8,Math.min(1.6,v));document.documentElement.style.setProperty('--uz',UZ);try{localStorage.setItem('gcbp_uz',UZ)}catch(e){}document.querySelectorAll('.menu.open').forEach(x=>x.classList.remove('open'));if(typeof resize==='function')setTimeout(resize,30);if(say)toast('Button size '+Math.round(UZ*100)+'%')}
 uzSet(UZ);
@@ -2712,8 +2712,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.7';
+const VERSION='3.33.8';
 const CHANGELOG=[
+ ['3.33.8','Nov 14, 2026',['Buttons start at 125% size (− / + at the top still change it)']],
  ['3.33.7','Nov 14, 2026',['Save asks where to save the file (Windows Save As dialog, starting in the last folder you used) – programs, setup sheets, backups, macros and Excel templates']],
  ['3.33.6','Nov 14, 2026',['Changing the graph colors or the code style no longer zooms out of the backplot','US spelling: colors']],
  ['3.33.5','Nov 14, 2026',['Meerplot for Windows: when Update can’t get through, it says why']],
