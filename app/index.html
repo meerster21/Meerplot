@@ -243,7 +243,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 <body>
 <div id="app">
 <header id="top">
- <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.3 · by Meer Rasheed</a></small></div></div>
+ <div class="brand"><div class="logo">⌖</div><div><b>Meerplot™</b><small><a href="#" id="verLink" title="About, credits and what’s new" style="color:inherit;text-decoration:none">v3.33.4 · by Meer Rasheed</a></small></div></div>
  <div class="grp">
   <button class="b" id="bOpen" title="Open a G-code file from your computer (.nc .txt .tap …)">📂 Open</button>
   <button class="b" id="fSave" title="Save the program as a .txt file">💾 Save</button>
@@ -592,7 +592,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
  <pre id="crPrev" style="background:var(--pn2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:8px 0;min-height:44px;font:13px ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap"></pre>
  <div id="crInfo" style="color:var(--mu);font-size:12px"></div>
  <div class="dfoot"><button class="b" id="crCopy" style="margin-right:auto">Copy</button><button class="b" id="crClose">Close</button><button class="b on" id="crIns">Insert below current line</button></div></dialog>
-<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.3</b></div>
+<dialog id="aboutdlg" style="--mw:640px"><div class="dhead"><h3>Meerplot™ <small style="font-weight:400;color:var(--mu)">G-code backplot &amp; simulator</small></h3><b style="color:var(--ac)">v3.33.4</b></div>
  <p style="margin:2px 0 10px;line-height:1.5">Created by <b>Meer Rasheed</b>.<br><span style="color:var(--mu)">© 2026 Meer Rasheed. All rights reserved.</span></p>
  <p style="margin:0 0 8px;font-size:12px;color:var(--mu)">Simulation is a guide only – always prove out new programs on the machine with care (single block, reduced rapid, feed hold ready).</p>
  <h4>What’s new</h4>
@@ -634,7 +634,7 @@ dialog input[type=checkbox]{width:16px;height:16px}
 </dialog>
 <script>
 const $=id=>document.getElementById(id);
-const S={type:'lathe',edge:1,autoflip:1,sr:0,srOn:1,rsim:60,srz:5,srw:2,srh:3,bdel:1,fa:0,stock:1,chuck:0,a:2.5,b:3.5,c:1,id:0,hx:10,hy:0,hz:5,flip:1,dia:1,jg:1,jl:2,jh:.75,cd:10,xm:20,z0:-80,z1:20,crash:1,rr:394,mx:1300,tc:2};
+const S={type:'lathe',edge:1,autoflip:1,sr:0,srOn:1,rsim:60,srz:5,srw:2,srh:3,bdel:1,fa:0,stock:0,chuck:0,a:2.5,b:3.5,c:1,id:0,hx:10,hy:0,hz:5,flip:1,dia:1,jg:1,jl:2,jh:.75,cd:10,xm:20,z0:-80,z1:20,crash:1,rr:394,mx:1300,tc:2};
 const FA=sd=>(S.type==='lathe'&&S.stock)?Math.max(0,+(sd===2&&S.fa2!=null&&S.fa2!==''?S.fa2:S.fa)||0):0;/* workshift: End A = S.fa, End B (after the flip) = S.fa2 (falls back to End A) *//* raw stock sticking out past Z0 (faced off to length) */
 const SRC=/\([^)]*(?:\b(?:CLOSE|CLAMP|ENGAGE)\s+(?:THE\s+)?(?:AUTO\s+)?(?:ST[A-Z]{2,5}|AUTO)\s*REST|\b(?:ST[A-Z]{2,5}|AUTO)\s*REST\s+(?:CLOSED?|ON|IN|CLAMPED?)\b)/i,SRO=/\([^)]*(?:\b(?:OPEN|UNCLAMP|RELEASE|RETRACT)\s+(?:THE\s+)?(?:AUTO\s+)?(?:ST[A-Z]{2,5}|AUTO)\s*REST|\b(?:ST[A-Z]{2,5}|AUTO)\s*REST\s+(?:OPEN(?:ED)?|OFF|OUT|UNCLAMPED?)\b)/i;
 const SPOTRE=/\([^)]*\b(?:ST[A-Z]{2,5}\s*)?REST\s+(?:SPOT|DIA|DIAMETER|JOURNAL|JRNL|AREA)\b/i;
@@ -1489,7 +1489,7 @@ function rebuild(fit){if(NOFIT)fit=false;const _sc=ta.scrollTop,_sl=ta.scrollLef
  const L=errs.slice(0,400),groups=[['c','✖ Critical – crash risks','Fix these before running the program'],['w','⚠ Warnings','Check these – the program may still run, but something looks wrong'],['n','💡 Suggestions & notes','Shop rules and tidy-ups – nothing dangerous']];
  return groups.map(([k,t,d])=>{const g=L.filter(e=>probCat(e)===k);return g.length?`<div class="pgh pg-${k}" data-pg="${k}">${t} <b>${g.length}</b><small>${d}</small></div>`+g.map(one).join(''):''}).join('')+(errs.length>400?`<div style="color:var(--mu);cursor:default">… and ${errs.length-400} more</div>`:'')})()+ignHTML():'<div class="okmsg">✔ No problems found · '+segs.length+' moves</div>'+ignHTML();
  {const ne=errs.filter(e=>!e.w).length,nw=errs.length-ne,tb=document.querySelector('#tabs [data-t=p]');const nn=errs.filter(e=>probCat(e)==='n').length,nw2=nw-nn;tb.innerHTML='Problems'+(ne?` <span class="pbadge e" title="Critical – crash risks">${ne} ✖</span>`:'')+(nw2?` <span class="pbadge w" title="Warnings">${nw2} ⚠</span>`:'')+(nn?` <span class="pbadge n" title="Suggestions &amp; notes">${nn} 💡</span>`:'');document.documentElement.classList.toggle('hasprob',ne+nw>0)}
- if(S.freshStock&&isL()&&segs.some(q=>q.type==='feed')){delete S.freshStock;const g=stockFromProgram();if(g){const x=stockExtras(g.a);S.stp='';S.rcd=0;S.a=g.a;S.b=g.b;S.fa=x.fa;S.fa2=x.fa2;S.id=x.id;S.stock=1;if(-S.z0<S.b+2)S.z0=-Math.ceil(S.b+2);cache=null;if(HSS.length)HSS[hi]=setSnap();toast(`Part stock sized from this program: Ø${S.a}${S.id?' × ID '+S.id:''} × ${S.b} – check it in ⚙ Stock & Machine`);saveSet();return rebuild(true)}}
+ if(S.freshStock&&isL()&&segs.some(q=>q.type==='feed')){delete S.freshStock;const g=stockFromProgram();if(g){const x=stockExtras(g.a);S.stp='';S.rcd=0;S.a=g.a;S.b=g.b;S.fa=x.fa;S.fa2=x.fa2;S.id=x.id;/* sized, but left off – turn it on in View options or Stock & Machine */if(-S.z0<S.b+2)S.z0=-Math.ceil(S.b+2);cache=null;if(HSS.length)HSS[hi]=setSnap();toast(`Part stock sized from this program: Ø${S.a}${S.id?' × ID '+S.id:''} × ${S.b} – it is off; turn it on in View options or ⚙ Stock & Machine`);saveSet();return rebuild(true)}}
  hlRender();if(typeof renderTabs==='function'&&TABS.length)renderTabs();if(MK>=ta.value.split('\n').length)MK=-1;if(fit&&!NOFIT)doFit();sync();hvUpd();/* rebuilding never moves the code you are looking at */if(Math.abs(ta.scrollTop-_sc)>1||ta.scrollLeft!==_sl){ta.scrollTop=_sc;ta.scrollLeft=_sl;ta.dispatchEvent(new Event('scroll'))}}
 const jumpTo=l=>{const ls=ta.value.split('\n');let o=0;for(let i=0;i<l;i++)o+=ls[i].length+1;ta.focus();ta.setSelectionRange(o,o+ls[l].length);ta.scrollTop=Math.max(0,l*LH()-60);setSel(l);draw()};
 $('outl').onclick=e=>{const l=e.target.dataset.l;if(l!=null)jumpTo(+l)};
@@ -2704,8 +2704,9 @@ $('opt').addEventListener('toggle',()=>{const sm=$('opt').querySelector('summary
 const spdUpd=()=>{const m=spdMul();$('spdv').textContent=(m<1?String(m).replace(/^0/,''):m)+'×';$('spdDn').disabled=+$('spd').value<=0;$('spdUp').disabled=+$('spd').value>=SPD.length-1};$('spd').max=SPD.length-1;$('spd').addEventListener('input',spdUpd);
 $('spdDn').onclick=()=>{$('spd').value=Math.max(0,+$('spd').value-1);spdUpd();saveSet()};$('spdUp').onclick=()=>{$('spd').value=Math.min(SPD.length-1,+$('spd').value+1);spdUpd();saveSet()};
 /* ===================== version, credits, change log ===================== */
-const VERSION='3.33.3';
+const VERSION='3.33.4';
 const CHANGELOG=[
+ ['3.33.4','Nov 14, 2026',['Part stock is off by default: a new or pasted program is sized for you but the stock stays off until you turn it on (View options or Stock & Machine). Program templates and Examples still turn it on with their real sizes']],
  ['3.33.3','Nov 14, 2026',['Backup & Restore shows just the backup file – saving to your Claude account still happens by itself in the claude.ai version']],
  ['3.33.2','Nov 14, 2026',['Meerplot icon is now an M over a turned shaft']],
  ['3.33.1','Nov 14, 2026',['New Meerplot icon – a turned shaft with the tool crosshair – on the .exe, its window and the browser tab']],
